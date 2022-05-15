@@ -117,11 +117,6 @@ export default function Home() {
           }
       };
 
-      const handleDotClick = (idx) => {
-          if (idx < activeIdx) prevClick(activeIdx - idx);
-          if (idx > activeIdx) nextClick(idx - activeIdx);
-      };
-
       useEffect(() => {
           if (isTicking) sleep(300).then(() => setIsTicking(false));
       }, [isTicking]);
@@ -151,15 +146,7 @@ export default function Home() {
                   <button className="carousel__btn carousel__btn--next" onClick={() => nextClick()}>
                       <i className="carousel__btn-arrow carousel__btn-arrow--right" />
                   </button>
-                  <div className="carousel__dots">
-                      {items.slice(0, length).map((pos, i) => (
-                          <button
-                              key={i}
-                              onClick={() => handleDotClick(i)}
-                              className={i === activeIdx ? 'dot active' : 'dot'}
-                          />
-                      ))}
-                  </div>
+                  
               </div>
           </div>
       );
@@ -167,7 +154,6 @@ export default function Home() {
   return (
     <Layout>
       <Carousel />
-
     </Layout>
   )
 }
