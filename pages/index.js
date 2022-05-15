@@ -1,8 +1,10 @@
+import { IconButton } from '@mui/material';
 import { useEffect, useState } from 'react';
 import Layout from '../components/Layout'
-import styles from '../styles/Home.module.css'
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 
-export default function Home() {
+export default function Home({imageInfo}) {
   const slideWidth = 30;
 
   const _items = [
@@ -126,11 +128,11 @@ export default function Home() {
       }, [items]);
 
       return (
+          
           <div className="carousel__wrap">
               <div className="carousel__inner">
-                  <button className="carousel__btn carousel__btn--prev" onClick={() => prevClick()}>
-                      <i className="carousel__btn-arrow carousel__btn-arrow--left" />
-                  </button>
+                  
+                  <IconButton className="carousel__btn carousel__btn--prev" onClick={() => prevClick()}><ArrowBackIosIcon/></IconButton>
                   <div className="carousel__container">
                       <ul className="carousel__slide-list">
                           {items.map((pos, i) => (
@@ -143,10 +145,7 @@ export default function Home() {
                           ))}
                       </ul>
                   </div>
-                  <button className="carousel__btn carousel__btn--next" onClick={() => nextClick()}>
-                      <i className="carousel__btn-arrow carousel__btn-arrow--right" />
-                  </button>
-                  
+                  <IconButton className="carousel__btn carousel__btn--next" onClick={() => nextClick()}><ArrowForwardIosIcon/></IconButton>
               </div>
           </div>
       );
@@ -156,4 +155,13 @@ export default function Home() {
       <Carousel />
     </Layout>
   )
+}
+
+export async function getServerSideProps({params}){
+    const {data} = await axios.get('https://api.unsplash.com/photos/?client_id=F7KIzaBZHTZKUFisECcdyZQLdOnnflj3cjMBd0_Wda4')
+    return{
+        props:{
+            imageInfo: data
+        }
+    }
 }

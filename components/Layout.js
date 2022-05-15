@@ -82,7 +82,7 @@ export default function Layout({title, description, name, children}) {
                 </div>
                 <footer className="footer">
                     <Typography>
-                        &copy; 2022 Trademarkia 
+                        &copy; 2022 Workduck 
                     </Typography>
                 </footer>
             </ThemeProvider>
