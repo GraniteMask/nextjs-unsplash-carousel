@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import Layout from '../components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import axios from 'axios';
 
 export default function Home({imageInfo}) {
   const slideWidth = 30;
