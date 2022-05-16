@@ -123,6 +123,7 @@
     bottom: -2.5rem;
     height: 10%;
     position: absolute;
+    display: flex;
   }
   .carousel-slide-item__body h4 {
     margin: 0.7rem 0 0;
