@@ -11,15 +11,10 @@ export default function Home({imageInfo}) {
   const [itemList, setItemList] = useState([])
 
   useEffect(()=>{
-    console.log(imageInfo)
-    for(var i=0; i<imageInfo.length; i++){
-        var player = {}
-        player.image = imageInfo[i].urls.raw
-        var playerLarge = {}
-        playerLarge = {player: player}
-        console.log(playerLarge)
-    }
+    setItemList(imageInfo)
   },[])
+  
+  console.log(itemList)
   const _items = [
       {
           player: {
@@ -58,6 +53,7 @@ export default function Home({imageInfo}) {
       },
   ];
 
+//   console.log(_items)
   const length = _items.length;
   _items.push(..._items);
 
@@ -70,7 +66,7 @@ export default function Home({imageInfo}) {
           styles: {
               transform: `translateX(${position * slideWidth}rem)`,
           },
-          player: _items[idx].player,
+          player: itemList.length != 0 && itemList[idx].player,
       };
 
       switch (position) {
@@ -94,17 +90,17 @@ export default function Home({imageInfo}) {
       return (
           <li className="carousel__slide-item" style={item.styles}>
               <div className="carousel__slide-item-img-link">
-                  <img src={item.player.image} alt={item.player.title} />
+                  <img src={item.player.image} />
               </div>
               <div className="carousel-slide-item__body">
-                  <h4>{item.player.title}</h4>
-                  <p>{item.player.desc}</p>
+                  {/* <h4>{item.player.title}</h4>
+                  <p>{item.player.desc}</p> */}
               </div>
           </li>
       );
   };
 
-  const keys = Array.from(Array(_items.length).keys());
+  const keys = Array.from(Array(itemList.length).keys());
 
   const Carousel = () => {
       const [items, setItems] = useState(keys);
@@ -172,9 +168,23 @@ export default function Home({imageInfo}) {
 
 export async function getServerSideProps({params}){
     const {data} = await axios.get('https://api.unsplash.com/photos/?client_id=F7KIzaBZHTZKUFisECcdyZQLdOnnflj3cjMBd0_Wda4')
+    var list = new Array()
+    if(data){
+        for(var i=0; i<data.length; i++){
+            var player = {}
+            player.image = data[i].urls.raw
+            console.log(player)
+            var playerLarge = {}
+            playerLarge = {player: player}
+            console.log(playerLarge)
+            list.push(playerLarge)
+        }
+    }
+    
+    console.log(list)
     return{
         props:{
-            imageInfo: data
+            imageInfo: list
         }
     }
 }
