@@ -6,8 +6,20 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from 'axios';
 
 export default function Home({imageInfo}) {
-  const slideWidth = 30;
 
+  const slideWidth = 30;
+  const [itemList, setItemList] = useState([])
+
+  useEffect(()=>{
+    console.log(imageInfo)
+    for(var i=0; i<imageInfo.length; i++){
+        var player = {}
+        player.image = imageInfo[i].urls.raw
+        var playerLarge = {}
+        playerLarge = {player: player}
+        console.log(playerLarge)
+    }
+  },[])
   const _items = [
       {
           player: {
