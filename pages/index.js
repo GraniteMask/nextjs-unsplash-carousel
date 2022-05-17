@@ -222,4 +222,4 @@ export async function getServerSideProps(){
     }
 }
 
-export default dynamic(() => Promise.resolve(Home), { ssr: true });
+export default dynamic(() => Promise.resolve(Home), { ssr: false });
