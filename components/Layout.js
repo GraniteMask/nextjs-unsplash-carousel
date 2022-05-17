@@ -59,8 +59,8 @@ export default function Layout({title, description, name, children}) {
                                 <Box display="flex" alignItems="center">
                                 <NextLink href="#" passHref>
                                     <Link>
-                                        <Typography style={{color: "black", marginLeft: "1rem"}} variant="h5">
-                                            Workduck
+                                        <Typography style={{color: "black", marginRight: "1rem"}} variant="h5">
+                                            Image Carousel
                                         </Typography>
                                     </Link>
                                 </NextLink>
@@ -68,9 +68,7 @@ export default function Layout({title, description, name, children}) {
 
                                 <div className="grow"></div>
                                 
-                                <Typography style={{color: "black", marginRight: "1rem"}} variant="h5">
-                                    Image Carousel
-                                </Typography>
+                                
                         
                                 
                             </Toolbar>
@@ -84,7 +82,7 @@ export default function Layout({title, description, name, children}) {
                 </div>
                 <footer className="footer">
                     <Typography>
-                        &copy; 2022 Workduck 
+                        &copy; 2022
                     </Typography>
                 </footer>
             </ThemeProvider>
