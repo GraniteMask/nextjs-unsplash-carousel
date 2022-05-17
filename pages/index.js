@@ -8,6 +8,7 @@ import DownloadIcon from '@mui/icons-material/Download';
 import ShuffleRoundedIcon from '@mui/icons-material/ShuffleRounded';
 import { styled } from '@mui/material/styles';
 import { useRouter } from 'next/router'
+import dynamic from 'next/dynamic';
 
 
 const DefTextField = styled(TextField)({
@@ -22,7 +23,7 @@ const DefTextField = styled(TextField)({
     },
   });
 
-export default function Home({imageInfo}) {
+function Home({imageInfo}) {
 
   const slideWidth = 30;
   const [itemList, setItemList] = useState([])
@@ -220,3 +221,5 @@ export async function getServerSideProps(){
         }
     }
 }
+
+export default dynamic(() => Promise.resolve(Home), { ssr: true });
