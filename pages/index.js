@@ -77,11 +77,10 @@ export default function Home({imageInfo}) {
               </a>
               
               <div className="carousel-slide-item__body">
-                  {/* <h4>{item.player.title}</h4>
-                  <p>{item.player.desc}</p> */}
+                  
                   <a href={item.player.userProfileLink} target="_blank"><Avatar alt={item.player.name} src={item.player.profile_image} /></a>
-                  <h4 style={{marginLeft: "1rem"}}>{item.player.name}</h4>
-                  <h5>({item.player.like} likes)</h5>
+                  <h4 className="carousel-slide-item__title">{item.player.name}</h4>
+                  <h5 className="carousel-slide-item__likes">({item.player.like} likes)</h5>
                   <a href={item.player.download} download><IconButton style={{justifyContent: "flex-end"}} onClick={()=>download(item.player.download)}><DownloadIcon/></IconButton></a>
               </div>
               
@@ -141,7 +140,7 @@ export default function Home({imageInfo}) {
 
       return (
           
-          <div className="carousel__wrap">
+          <div className="carousel__wrap" style={{marginTop: "5rem"}}>
               <div className="carousel__inner">      
                   <div className="carousel__container">
                       <ul className="carousel__slide-list">
