@@ -1,6 +1,6 @@
 import { Avatar, Button, IconButton, TextField } from '@mui/material';
 import { useEffect, useState } from 'react';
-import Layout from '../components/Layout'
+import Layout from '../../components/Layout'
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import axios from 'axios';
@@ -26,7 +26,6 @@ export default function Home({imageInfo}) {
 
   const slideWidth = 30;
   const [itemList, setItemList] = useState([])
-  const [query,setQuery] = useState('')
   const router = useRouter()
 
   useEffect(()=>{
@@ -156,7 +155,7 @@ export default function Home({imageInfo}) {
       }, [items]);
 
       const handleSubmit = () =>{
-        router.push(`/customSearch/${query}`)
+        router.push(`/`)
       }
 
       return (
@@ -178,10 +177,8 @@ export default function Home({imageInfo}) {
                   <IconButton className="carousel__btn carousel__btn--prev" onClick={() => prevClick()}><ArrowBackIosIcon style={{marginLeft: "5px", width: "24px"}}/></IconButton>
                   <IconButton className="carousel__btn carousel__btn--shuffle" onClick={() => shuffle()}><ShuffleRoundedIcon /></IconButton>
                   <IconButton className="carousel__btn carousel__btn--next" onClick={() => nextClick()}><ArrowForwardIosIcon style={{width: "29px"}}/></IconButton>
-                  <div style={{display: "flex"}}>
-                    <DefTextField variant="outlined" placeholder="What you want to search ?" onBlur={(e)=>setQuery(e.target.value)} fullWidth/>
-                    <Button variant="contained" className="search__button" onClick={()=>handleSubmit()}>Search</Button>
-                  </div> 
+                  <Button variant="contained" className="search__button" onClick={()=>handleSubmit()} style={{marginLeft: "auto"}} fullWidth>Back to home page</Button>
+
               </div>
           </div>
       );
@@ -193,18 +190,21 @@ export default function Home({imageInfo}) {
   )
 }
 
-export async function getServerSideProps(){
-    const {data} = await axios.get(`https://api.unsplash.com/photos/?client_id=${process.env.CLIENT_ID}`)
+export async function getServerSideProps(context){
+    const {params} = context;
+    const {query} = params
+
+    const {data} = await axios.get(`https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=${process.env.CLIENT_ID}`)
     var list = new Array()
     if(data){
-        for(var i=0; i<data.length; i++){
+        for(var i=0; i<data.results.length; i++){
             var player = {}
-            player.image = data[i].urls.raw
-            player.like = data[i].likes
-            player.profile_image = data[i].user.profile_image.medium
-            player.name = data[i].user.name
-            player.download = data[i].links.download
-            player.userProfileLink = data[i].user.links.html
+            player.image = data.results[i].urls.raw
+            player.like = data.results[i].likes
+            player.profile_image = data.results[i].user.profile_image.medium
+            player.name = data.results[i].user.name
+            player.download = data.results[i].links.download
+            player.userProfileLink = data.results[i].user.links.html
             // console.log(player)
             var playerLarge = {}
             playerLarge = {player: player}
@@ -213,7 +213,7 @@ export async function getServerSideProps(){
         }
     }
     
-    // console.log(list)
+    console.log(list)
     return{
         props:{
             imageInfo: list

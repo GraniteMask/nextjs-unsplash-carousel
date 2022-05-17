@@ -187,10 +187,21 @@ a {
   width: 6rem;
   z-index: 10;
 }
+
 .carousel__btn-arrow--left {
   transform: rotate(135deg);
 }
+
 .carousel__btn-arrow--right {
   transform: rotate(-45deg);
+}
+
+.search__button{
+  min-height: 56px !important;
+  border-radius: 14.843px !important;
+  width: 200px !important;
+  background-color: #8f83c9 !important;
+  text-transform: none;
+  margin-left: 2rem;
 }
 
